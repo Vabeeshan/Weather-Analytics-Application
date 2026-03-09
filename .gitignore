@@ -1,0 +1,47 @@
+# Maven build folder
+/target/
+
+# Logs and compiled files
+*.log
+*.class
+
+# Maven Wrapper (keep in repo)
+.mvn/wrapper/maven-wrapper.jar
+
+# Spring Boot sensitive properties
+/src/main/resources/application*.properties
+.env
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+/out/
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+HELP.md

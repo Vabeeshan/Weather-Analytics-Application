@@ -77,6 +77,13 @@ public class WeatherService {
                                 .get("speed")
                                 .asDouble();
 
+            // Extract weather description
+            String description = weatherData.get("weather")
+                    .get(0)
+                    .get("description")
+                    .asText();
+
+
             city.setTemp(temperature);
             city.setHumidity(humidity);
             city.setWindSpeed(windSpeed);
@@ -84,7 +91,8 @@ public class WeatherService {
             CityWeatherResult Movingcity = comfortIndexService.calculateComfortindex(city);
 
             CityWeatherResult result = new CityWeatherResult(city.getCityName(),
-                                                    Movingcity.getComfortScore(),Movingcity.getRank());
+                                                    Movingcity.getComfortScore(),Movingcity.getRank(),
+                                                   description, temperature );
 
             results.add(result);
         }

@@ -29,5 +29,7 @@ public class CityWeatherResult {
     private String CityName;
     private Double ComfortScore;
     private String Rank;
+    private String Decsription;
+    private Double Temperature;
 
 }

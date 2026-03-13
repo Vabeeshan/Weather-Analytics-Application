@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CityWeatherResult {
     private String CityName;
-    private double Temp;
-    private String ConfortScore;
+    private Double ComfortScore;
+    private String Rank;
 
 }

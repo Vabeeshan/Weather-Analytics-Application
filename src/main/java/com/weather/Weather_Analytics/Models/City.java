@@ -11,5 +11,8 @@ public class City {
     private String CityCode;
     private String CityName;
     private Double Temp;
+    private Double humidity;
+    private Double windSpeed;
     private String Status;
+
 }

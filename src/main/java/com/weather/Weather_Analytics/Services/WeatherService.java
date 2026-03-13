@@ -62,22 +62,29 @@ public class WeatherService {
                 throw new WeatherExceptions("Weather data not found for city: " + city.getCityName());
             }
 
+            // Extract temperature (Celsius)
             double temperature = weatherData.get("main")
-                                        .get("temp")
-                                        .asDouble();
+                    .get("temp")
+                    .asDouble();
 
-            String status = weatherData.get("weather")
-                                .get(0)
-                                .get("main")
-                                .asText();
+            // Extract humidity (%)
+                        double humidity = weatherData.get("main")
+                                .get("humidity")
+                                .asDouble();  // or asInt() if you prefer
+
+            // Extract wind speed (m/s)
+                        double windSpeed = weatherData.get("wind")
+                                .get("speed")
+                                .asDouble();
 
             city.setTemp(temperature);
-            city.setStatus(status);
+            city.setHumidity(humidity);
+            city.setWindSpeed(windSpeed);
 
-            String comfortIndex = comfortIndexService.calculateComfortindex(city);
+            CityWeatherResult Movingcity = comfortIndexService.calculateComfortindex(city);
 
             CityWeatherResult result = new CityWeatherResult(city.getCityName(),
-                                                    temperature,comfortIndex);
+                                                    Movingcity.getComfortScore(),Movingcity.getRank());
 
             results.add(result);
         }

@@ -1,5 +1,6 @@
 package com.weather.Weather_Analytics.Services;
 
+import com.weather.Weather_Analytics.DTO.CityWeatherResult;
 import com.weather.Weather_Analytics.Models.City;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,23 +11,35 @@ public class ComfortIndexService {
 
     private static final Logger logger = LoggerFactory.getLogger(ComfortIndexService.class);
 
-    public String calculateComfortindex(City city){
+    public CityWeatherResult calculateComfortindex(City city){
         logger.info("Calculating comfort index for city: {}", city.getCityName());
 
-        double temperature = city.getTemp();
-        String status = city.getStatus();
+        // 1️⃣ Retrieve weather parameters
+        double temperature = city.getTemp();        // in Celsius
+        double humidity = city.getHumidity();       // in percentage
+        double windSpeed = city.getWindSpeed();     // in m/s
 
-        if (temperature >= 22 && temperature <= 27 && status.equalsIgnoreCase("Clear")) {
-            return "High Comfort";
+        double comfortScore = (27 - Math.abs(temperature - 25)) * 0.5  // temperature contribution
+                + (100 - humidity) * 0.3                    // humidity contribution
+                - windSpeed * 0.2;                           // wind contribution
+
+        logger.info("Temperature: {}, Humidity: {}, Wind Speed: {}, Comfort Score: {}",
+                temperature, humidity, windSpeed, comfortScore);
+
+        CityWeatherResult transferngWeatherResult = new CityWeatherResult();
+        transferngWeatherResult.setComfortScore(comfortScore);
+
+        // 3️⃣ Convert numeric score to descriptive level
+        if (comfortScore >= 70) {
+            transferngWeatherResult.setRank("High Comfort");
+        } else if (comfortScore >= 50) {
+            transferngWeatherResult.setRank("Moderate Comfort");
+        } else if (comfortScore >= 30) {
+            transferngWeatherResult.setRank("Low Comfort");
+        } else {
+            transferngWeatherResult.setRank("Very Low Comfort");
         }
-        else if (temperature >= 28 && temperature <= 32 && status.equalsIgnoreCase("Clouds")) {
-            return "Medium Comfort";
-        }
-        else if (temperature > 32) {
-            return "Low Comfort";
-        }
-        else {
-            return "Moderate Comfort";
-        }
+
+        return transferngWeatherResult;
     }
 }

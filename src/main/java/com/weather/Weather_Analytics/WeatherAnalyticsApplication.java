@@ -8,6 +8,7 @@ public class WeatherAnalyticsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherAnalyticsApplication.class, args);
+		System.out.println("🌦 Weather Analytics Application started successfully!");
 	}
 
 }

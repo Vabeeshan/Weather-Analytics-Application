@@ -47,7 +47,7 @@ public class OpenWeatherClient {
        try{
            String url = UriComponentsBuilder.fromHttpUrl(weather_URL)
                    .queryParam("id",cityID)
-                   .queryParam("apid",apiKey)
+                   .queryParam("appid",apiKey)
                    .queryParam("units","metric")
                    .toUriString();
 

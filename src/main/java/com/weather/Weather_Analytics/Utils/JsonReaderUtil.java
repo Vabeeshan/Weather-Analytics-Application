@@ -60,7 +60,7 @@ public class JsonReaderUtil {
             }
 
             logger.info("Successfully loaded {} cities", cities.size());
-            logger.error("Error occured while reading cities.json file");
+
         }
         catch (Exception err){
             logger.error("Error occured while reading cities.json file", err);

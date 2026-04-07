@@ -1,35 +1,48 @@
 package com.weather.Weather_Analytics.Controllers;
 
+import com.weather.Weather_Analytics.DTO.AnomalyDetection;
+import com.weather.Weather_Analytics.DTO.AnomalyRequestCities;
 import com.weather.Weather_Analytics.DTO.CityWeatherResult;
 import com.weather.Weather_Analytics.Services.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("api/weather")
+@CrossOrigin(origins = "http://localhost:5173")
 public class WeatherController {
 
+    //logger
     Logger logger = LoggerFactory.getLogger(WeatherController.class);
 
-   private final WeatherService weatherService;
+    //Weather service Instances
+    private final WeatherService weatherService;
 
-   public WeatherController(WeatherService weatherService){
-       this.weatherService = weatherService;
-   }
+    List<CityWeatherResult> resultForAnomaly = new ArrayList<>();
 
+
+    public WeatherController(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
+
+    //method to get weather details
     @GetMapping("/comfort")
-    public ResponseEntity<?> getComfortWeather(){
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<?> getComfortWeather() {
+        resultForAnomaly = weatherService.getWeatherResult();
+        logger.info("Received the request");
 
-       logger.info("Received the request");
 
-       return ResponseEntity.ok(weatherService.getWeatherResult());
+        return ResponseEntity.ok(resultForAnomaly);
     }
 
 

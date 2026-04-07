@@ -9,7 +9,7 @@
 .mvn/wrapper/maven-wrapper.jar
 
 # Spring Boot sensitive properties
-/src/main/resources/application*.properties
+/src/main/resources/application.yml
 .env
 
 # IntelliJ IDEA
